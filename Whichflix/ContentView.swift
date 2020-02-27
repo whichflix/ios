@@ -1,16 +1,20 @@
-//
-//  ContentView.swift
-//  Whichflix
-//
-//  Created by Dasmer Singh on 2/22/20.
-//  Copyright © 2020 Dastronics. All rights reserved.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var observed = Observer()
+
     var body: some View {
-        Text("Hello, World!")
+        NavigationView{
+            List(observed.elections){ i in
+                HStack{Text(i.title)}
+                }.navigationBarItems(
+                  trailing: Button(action: addEvent, label: { Text("Add") }))
+            .navigationBarTitle("Events")
+        }
+    }
+
+    func addEvent(){
+        observed.getElections()
     }
 }
 
