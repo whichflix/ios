@@ -18,7 +18,6 @@
 		2F6B1E132401B2E500DA5765 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F6B1E122401B2E500DA5765 /* Preview Assets.xcassets */; };
 		2F6B1E162401B2E500DA5765 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F6B1E142401B2E500DA5765 /* LaunchScreen.storyboard */; };
 		2FFCF8942401B3A9002A7530 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2FFCF8932401B3A9002A7530 /* Alamofire */; };
-		2FFCF8982401B924002A7530 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFCF8972401B924002A7530 /* Observer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +33,6 @@
 		2F6B1E122401B2E500DA5765 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2F6B1E152401B2E500DA5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F6B1E172401B2E500DA5765 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2FFCF8972401B924002A7530 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +69,6 @@
 				2F6B1E092401B2E300DA5765 /* AppDelegate.swift */,
 				2F4EDC61240763360049A997 /* ElectionsViewController.swift */,
 				2F6B1E0D2401B2E300DA5765 /* ContentView.swift */,
-				2FFCF8972401B924002A7530 /* Observer.swift */,
 				2F4EDC59240746600049A997 /* Participant.swift */,
 				2F4EDC5B240746EE0049A997 /* Candidate.swift */,
 				2F4EDC5D240748570049A997 /* Election.swift */,
@@ -169,7 +166,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FFCF8982401B924002A7530 /* Observer.swift in Sources */,
 				2F6B1E0A2401B2E300DA5765 /* AppDelegate.swift in Sources */,
 				2F4EDC5E240748570049A997 /* Election.swift in Sources */,
 				2F4EDC5C240746EE0049A997 /* Candidate.swift in Sources */,
