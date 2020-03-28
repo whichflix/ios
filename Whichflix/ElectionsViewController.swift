@@ -64,8 +64,37 @@ class ElectionsViewController: UITableViewController {
         navigationController?.pushViewController(viewController, animated: true)
     }
 
+    // MARK: Public Functions
+    public func joinElectionWithID(_ electionID: String) {
+        navigationController?.popToRootViewController(animated: true)
+        let lowercasedElectionIDs = elections.map { $0.id.lowercased() }
+        guard !((lowercasedElectionIDs).contains(electionID.lowercased())) else {
+            showAlreadyInElectionPrompt()
+            return
+        }
+        let url = "https://warm-wave-23838.herokuapp.com/v1/elections/\(electionID)/participants/"
+        let parameters = [
+            "name": UserDefaults.standard.string(forKey: "userName")!
+        ]
+        session.request(url,method: .post, parameters: parameters)
+            .validate()
+            .responseDecodable(of: Election.self) { [weak self] response in
+                print(response)
+                guard let election = response.value,
+                    let strongSelf = self else { return }
+                strongSelf.elections.append(election)
+                let electionViewController = ElectionViewController(session: strongSelf.session, election: election)
+                strongSelf.navigationController?.pushViewController(electionViewController, animated: true)
+        }
+    }
 
     // MARK: Private Functions
+
+    private func showAlreadyInElectionPrompt() {
+        let alertController = UIAlertController(title: "You're already in this election", message: nil, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
 
     private func refresh() {
         let savedName = UserDefaults.standard.string(forKey: "userName") ?? ""

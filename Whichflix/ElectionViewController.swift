@@ -4,7 +4,11 @@ import Alamofire
 class ElectionViewController: UITableViewController {
 
     private let session: Alamofire.Session
-    private var election: Election
+    private var election: Election {
+        didSet {
+            title = election.title
+        }
+    }
 
     init(session: Alamofire.Session, election: Election) {
         self.session = session
@@ -18,7 +22,9 @@ class ElectionViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(userTappedEdit))
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(userTappedEdit))
+        let shareButton = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(userTappedShare))
+        navigationItem.rightBarButtonItems = [shareButton, editButton]
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -28,6 +34,12 @@ class ElectionViewController: UITableViewController {
 
     private func refresh() {
         title = election.title
+    }
+
+    @objc private func userTappedShare() {
+        let url = URL(string: "whichflix://election?id=\(election.id)")!
+        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        present(activityViewController, animated: true)
     }
 
     @objc private func userTappedEdit() {
@@ -41,7 +53,7 @@ class ElectionViewController: UITableViewController {
         let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController, self] _ in
             let movieNightName = alertController.textFields![0].text!
             if movieNightName.count > 0 {
-                let url = "https://warm-wave-23838.herokuapp.com/v1/elections/\(self.election.id)"
+                let url = "https://warm-wave-23838.herokuapp.com/v1/elections/\(self.election.id)/"
                 let parameters = [
                     "title": "\(movieNightName)",
                 ]
@@ -49,7 +61,7 @@ class ElectionViewController: UITableViewController {
                     .validate()
                     .responseDecodable(of: Election.self) { [weak self] response in
                         guard let election = response.value else { return }
-                        print(election.title)
+                        self?.election = election
                         self?.refresh()
                 }
             }
