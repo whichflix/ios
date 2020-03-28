@@ -13,10 +13,10 @@
 		2F4EDC6024075A5D0049A997 /* Elections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EDC5F24075A5D0049A997 /* Elections.swift */; };
 		2F4EDC62240763360049A997 /* ElectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EDC61240763360049A997 /* ElectionsViewController.swift */; };
 		2F6B1E0A2401B2E300DA5765 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6B1E092401B2E300DA5765 /* AppDelegate.swift */; };
-		2F6B1E0E2401B2E300DA5765 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6B1E0D2401B2E300DA5765 /* ContentView.swift */; };
 		2F6B1E102401B2E500DA5765 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F6B1E0F2401B2E500DA5765 /* Assets.xcassets */; };
 		2F6B1E132401B2E500DA5765 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F6B1E122401B2E500DA5765 /* Preview Assets.xcassets */; };
 		2F6B1E162401B2E500DA5765 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F6B1E142401B2E500DA5765 /* LaunchScreen.storyboard */; };
+		2FA47D25240B224D009DF645 /* ElectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA47D24240B224D009DF645 /* ElectionViewController.swift */; };
 		2FFCF8942401B3A9002A7530 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2FFCF8932401B3A9002A7530 /* Alamofire */; };
 /* End PBXBuildFile section */
 
@@ -28,11 +28,11 @@
 		2F4EDC61240763360049A997 /* ElectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionsViewController.swift; sourceTree = "<group>"; };
 		2F6B1E062401B2E300DA5765 /* Whichflix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whichflix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F6B1E092401B2E300DA5765 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2F6B1E0D2401B2E300DA5765 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2F6B1E0F2401B2E500DA5765 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F6B1E122401B2E500DA5765 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2F6B1E152401B2E500DA5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F6B1E172401B2E500DA5765 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2FA47D24240B224D009DF645 /* ElectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +68,7 @@
 			children = (
 				2F6B1E092401B2E300DA5765 /* AppDelegate.swift */,
 				2F4EDC61240763360049A997 /* ElectionsViewController.swift */,
-				2F6B1E0D2401B2E300DA5765 /* ContentView.swift */,
+				2FA47D24240B224D009DF645 /* ElectionViewController.swift */,
 				2F4EDC59240746600049A997 /* Participant.swift */,
 				2F4EDC5B240746EE0049A997 /* Candidate.swift */,
 				2F4EDC5D240748570049A997 /* Election.swift */,
@@ -166,10 +166,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FA47D25240B224D009DF645 /* ElectionViewController.swift in Sources */,
 				2F6B1E0A2401B2E300DA5765 /* AppDelegate.swift in Sources */,
 				2F4EDC5E240748570049A997 /* Election.swift in Sources */,
 				2F4EDC5C240746EE0049A997 /* Candidate.swift in Sources */,
-				2F6B1E0E2401B2E300DA5765 /* ContentView.swift in Sources */,
 				2F4EDC62240763360049A997 /* ElectionsViewController.swift in Sources */,
 				2F4EDC5A240746600049A997 /* Participant.swift in Sources */,
 				2F4EDC6024075A5D0049A997 /* Elections.swift in Sources */,
@@ -309,6 +309,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Whichflix/Preview Content\"";
 				DEVELOPMENT_TEAM = 63259B266M;
 				ENABLE_PREVIEWS = YES;
@@ -320,7 +321,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dastronics.Whichflix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -329,6 +330,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Whichflix/Preview Content\"";
 				DEVELOPMENT_TEAM = 63259B266M;
 				ENABLE_PREVIEWS = YES;
@@ -340,7 +342,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dastronics.Whichflix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
