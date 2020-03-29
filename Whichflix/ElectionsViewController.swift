@@ -10,6 +10,8 @@ class ElectionsViewController: UITableViewController {
 
     private let session: Alamofire.Session
 
+    private var userNameStore = UserNameStore()
+
     private var elections = [Election]() {
         didSet {
             tableView.reloadData()
@@ -65,7 +67,30 @@ class ElectionsViewController: UITableViewController {
         navigationController?.pushViewController(viewController, animated: true)
     }
 
+
     // MARK: Public Functions
+    public func userTappedLinkToJoinElectionWithID(_ electionID: String) {
+        // Dismiss any view controllers and pop to root
+        dismiss(animated: false, completion: nil)
+        navigationController?.popToRootViewController(animated: false)
+
+
+        if userNameStore.nameExists() {
+            joinElectionWithID(electionID)
+        } else {
+            promptForUserName() { [unowned self, electionID] in
+                self.joinElectionWithID(electionID)
+            }
+        }
+
+
+        let lowercasedElectionIDs = elections.map { $0.id.lowercased() }
+        guard !((lowercasedElectionIDs).contains(electionID.lowercased())) else {
+            presentElectionWithID(electionID)
+            return
+        }
+    }
+
     public func joinElectionWithID(_ electionID: String) {
         navigationController?.popToRootViewController(animated: true)
         let lowercasedElectionIDs = elections.map { $0.id.lowercased() }
@@ -75,7 +100,7 @@ class ElectionsViewController: UITableViewController {
         }
         let fullURL = "\(url)\(electionID)/participants/"
         let parameters = [
-            "name": UserDefaults.standard.string(forKey: "userName")!
+            "name": userNameStore.name
         ]
         session.request(fullURL, method: .post, parameters: parameters)
             .validate()
@@ -98,8 +123,7 @@ class ElectionsViewController: UITableViewController {
     }
 
     private func refresh() {
-        let savedName = UserDefaults.standard.string(forKey: "userName") ?? ""
-        let title = savedName.count > 0 ? savedName : "Enter Name"
+        let title = userNameStore.nameExists() ? userNameStore.name : "Enter Name"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(userTappedChangeUserName))
         session.request(url, method: .get)
             .validate()
@@ -111,10 +135,9 @@ class ElectionsViewController: UITableViewController {
     }
 
     @objc private func createElectionWithMovieNightName(_ name: String) {
-        let savedUserName = UserDefaults.standard.string(forKey: "userName")!
         let parameters = [
             "title": "\(name)",
-            "initiator_name": "\(savedUserName)"
+            "initiator_name": "\(userNameStore.name)"
         ]
         session.request(url, method: .post, parameters: parameters)
             .validate()
@@ -128,8 +151,7 @@ class ElectionsViewController: UITableViewController {
 
     @objc private func userTappedCreateMovieNight() {
         Amplitude.instance()?.logEvent("User Tapped Create Movie")
-        let savedName = UserDefaults.standard.string(forKey: "userName") ?? ""
-        if savedName.count > 0 {
+        if userNameStore.nameExists() {
             promptForMovieNightName()
         } else {
             promptForUserName() { [weak self] in
@@ -164,12 +186,11 @@ class ElectionsViewController: UITableViewController {
         alertController.addTextField()
 
         let textField = alertController.textFields![0]
-        textField.text = UserDefaults.standard.string(forKey: "userName")
+        textField.text = userNameStore.name
         textField.placeholder = "Enter a name"
 
         let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController, completionHandler, self] _ in
-            let name = alertController.textFields![0].text ?? ""
-            UserDefaults.standard.set(name, forKey: "userName")
+            self.userNameStore.name = alertController.textFields![0].text ?? ""
             self.refresh()
             completionHandler()
         }
