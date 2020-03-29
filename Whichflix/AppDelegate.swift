@@ -13,14 +13,8 @@ import Amplitude
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    private let session: Alamofire.Session = {
-        let configuration = URLSessionConfiguration.af.default
-        configuration.headers["X-Device-ID"] = UIDevice.current.identifierForVendor!.uuidString
-        return Alamofire.Session(configuration: configuration)
-    }()
-
     private lazy var electionsViewController: ElectionsViewController = {
-        let viewController = ElectionsViewController(session: session)
+        let viewController = ElectionsViewController()
         return viewController
     }()
 
