@@ -16,6 +16,7 @@
 		2F6B1E102401B2E500DA5765 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F6B1E0F2401B2E500DA5765 /* Assets.xcassets */; };
 		2F6B1E132401B2E500DA5765 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F6B1E122401B2E500DA5765 /* Preview Assets.xcassets */; };
 		2F6B1E162401B2E500DA5765 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F6B1E142401B2E500DA5765 /* LaunchScreen.storyboard */; };
+		2F7A734324300493005C12EC /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 2F7A734224300493005C12EC /* Amplitude */; };
 		2FA47D25240B224D009DF645 /* ElectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA47D24240B224D009DF645 /* ElectionViewController.swift */; };
 		2FFCF8942401B3A9002A7530 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2FFCF8932401B3A9002A7530 /* Alamofire */; };
 /* End PBXBuildFile section */
@@ -40,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F7A734324300493005C12EC /* Amplitude in Frameworks */,
 				2FFCF8942401B3A9002A7530 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -107,6 +109,7 @@
 			name = Whichflix;
 			packageProductDependencies = (
 				2FFCF8932401B3A9002A7530 /* Alamofire */,
+				2F7A734224300493005C12EC /* Amplitude */,
 			);
 			productName = Whichflix;
 			productReference = 2F6B1E062401B2E300DA5765 /* Whichflix.app */;
@@ -138,6 +141,7 @@
 			mainGroup = 2F6B1DFD2401B2E300DA5765;
 			packageReferences = (
 				2FFCF8922401B3A9002A7530 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				2F7A734124300493005C12EC /* XCRemoteSwiftPackageReference "Amplitude-iOS" */,
 			);
 			productRefGroup = 2F6B1E072401B2E300DA5765 /* Products */;
 			projectDirPath = "";
@@ -370,6 +374,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2F7A734124300493005C12EC /* XCRemoteSwiftPackageReference "Amplitude-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/amplitude/Amplitude-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 		2FFCF8922401B3A9002A7530 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -381,6 +393,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2F7A734224300493005C12EC /* Amplitude */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F7A734124300493005C12EC /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
+			productName = Amplitude;
+		};
 		2FFCF8932401B3A9002A7530 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2FFCF8922401B3A9002A7530 /* XCRemoteSwiftPackageReference "Alamofire" */;

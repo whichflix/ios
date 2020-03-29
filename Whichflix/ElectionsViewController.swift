@@ -1,5 +1,6 @@
 import UIKit
 import Alamofire
+import Amplitude
 
 class ElectionsViewController: UITableViewController {
 
@@ -127,8 +128,8 @@ class ElectionsViewController: UITableViewController {
     }
 
     @objc private func userTappedCreateMovieNight() {
+        Amplitude.instance()?.logEvent("User Tapped Create Movie")
         let savedName = UserDefaults.standard.string(forKey: "userName") ?? ""
-
         if savedName.count > 0 {
             promptForMovieNightName()
         } else {
@@ -154,7 +155,8 @@ class ElectionsViewController: UITableViewController {
         present(alertController, animated: true)
     }
 
-    @objc private func promptUserName() {
+    @objc private func userTappedChangeUserName() {
+        Amplitude.instance()?.logEvent("User Tapped Change User Name")
         promptForUserName() {}
     }
 
