@@ -3,15 +3,13 @@ import Alamofire
 
 class ElectionViewController: UITableViewController {
 
-    private let session: Alamofire.Session
     private var election: Election {
         didSet {
             title = election.title
         }
     }
 
-    init(session: Alamofire.Session, election: Election) {
-        self.session = session
+    init(election: Election) {
         self.election = election
         super.init(style: .plain)
     }
@@ -53,16 +51,9 @@ class ElectionViewController: UITableViewController {
         let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController, self] _ in
             let movieNightName = alertController.textFields![0].text!
             if movieNightName.count > 0 {
-                let url = "https://warm-wave-23838.herokuapp.com/v1/elections/\(self.election.id)/"
-                let parameters = [
-                    "title": "\(movieNightName)",
-                ]
-                self.session.request(url, method: .put, parameters: parameters)
-                    .validate()
-                    .responseDecodable(of: Election.self) { [weak self] response in
-                        guard let election = response.value else { return }
-                        self?.election = election
-                        self?.refresh()
+                Client.shared.changeElectionName(newName: movieNightName, electionID: self.election.id) { [weak self] in
+                    guard let election = $0 else { return }
+                    self?.election = election
                 }
             }
         }

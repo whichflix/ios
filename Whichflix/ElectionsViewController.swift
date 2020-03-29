@@ -8,26 +8,10 @@ class ElectionsViewController: UITableViewController {
 
     private let url = "https://warm-wave-23838.herokuapp.com/v1/elections/"
 
-    private let session: Alamofire.Session
-
-    private var userNameStore = UserNameStore()
-
     private var elections = [Election]() {
         didSet {
             tableView.reloadData()
         }
-    }
-
-
-    // MARK: Initialization
-
-    init(session: Alamofire.Session) {
-        self.session = session
-        super.init(style: .plain)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
 
@@ -63,7 +47,7 @@ class ElectionsViewController: UITableViewController {
     // MARK: UITableViewControllerDelegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewController = ElectionViewController(session: session, election: elections[indexPath.row])
+        let viewController = ElectionViewController(election: elections[indexPath.row])
         navigationController?.pushViewController(viewController, animated: true)
     }
 
@@ -82,7 +66,7 @@ class ElectionsViewController: UITableViewController {
         }
 
         // Join if user has a name, o/w ask for name first
-        if userNameStore.nameExists() {
+        if UserNameStore.shared.nameExists() {
             joinElectionWithID(electionID)
         } else {
             promptForUserName() { [unowned self, electionID] in
@@ -92,18 +76,10 @@ class ElectionsViewController: UITableViewController {
     }
 
     private func joinElectionWithID(_ electionID: String) {
-        let fullURL = "\(url)\(electionID)/participants/"
-        let parameters = [
-            "name": userNameStore.name
-        ]
-        session.request(fullURL, method: .post, parameters: parameters)
-            .validate()
-            .responseDecodable(of: Election.self) { [weak self] response in
-                print(response)
-                guard let election = response.value,
-                    let strongSelf = self else { return }
-                strongSelf.elections.append(election)
-                strongSelf.presentElectionWithID(electionID)
+        Client.shared.joinElectionWithID(electionID) { [weak self] in
+            guard let election = $0 else { return }
+            self?.elections.append(election)
+            self?.presentElectionWithID(electionID)
         }
     }
 
@@ -111,40 +87,30 @@ class ElectionsViewController: UITableViewController {
 
     private func presentElectionWithID(_ electionID: String) {
         guard let election = (elections.filter { $0.id == electionID }.first) else { return }
-        let electionViewController = ElectionViewController(session:session, election:  election)
+        let electionViewController = ElectionViewController(election:  election)
         navigationController?.pushViewController(electionViewController, animated: true)
     }
 
     private func refresh() {
-        let title = userNameStore.nameExists() ? userNameStore.name : "Enter Name"
+        let title = UserNameStore.shared.nameExists() ? UserNameStore.shared.name : "Enter Name"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(userTappedChangeUserName))
-        session.request(url, method: .get)
-            .validate()
-            .responseDecodable(of: Elections.self) { response in
-                print(response)
-                guard let elections = response.value else { return }
-                self.elections = elections.all
+        Client.shared.fetchElections() { [weak self] in
+            guard let elections = $0 else { return }
+            self?.elections = elections
         }
     }
 
     @objc private func createElectionWithMovieNightName(_ name: String) {
-        let parameters = [
-            "title": "\(name)",
-            "initiator_name": "\(userNameStore.name)"
-        ]
-        session.request(url, method: .post, parameters: parameters)
-            .validate()
-            .responseDecodable(of: Election.self) { [weak self] response in
-                print(response)
-                guard let election = response.value else { return }
-                print(election.title)
-                self?.refresh()
+
+        Client.shared.createElectionWithName(name) { [weak self] in
+            guard let election = $0 else { return }
+            self?.elections.append(election)
         }
     }
 
     @objc private func userTappedCreateMovieNight() {
         Amplitude.instance()?.logEvent("User Tapped Create Movie")
-        if userNameStore.nameExists() {
+        if UserNameStore.shared.nameExists() {
             promptForMovieNightName()
         } else {
             promptForUserName() { [weak self] in
@@ -179,11 +145,11 @@ class ElectionsViewController: UITableViewController {
         alertController.addTextField()
 
         let textField = alertController.textFields![0]
-        textField.text = userNameStore.name
+        textField.text = UserNameStore.shared.name
         textField.placeholder = "Enter a name"
 
         let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController, completionHandler, self] _ in
-            self.userNameStore.name = alertController.textFields![0].text ?? ""
+            UserNameStore.shared.name = alertController.textFields![0].text ?? ""
             self.refresh()
             completionHandler()
         }

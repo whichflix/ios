@@ -2,6 +2,8 @@ import Foundation
 
 struct UserNameStore {
 
+    public static var shared = UserNameStore()
+
     public var name: String {
         get {
             return UserDefaults.standard.string(forKey: "userName") ?? ""

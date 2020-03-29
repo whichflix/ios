@@ -18,6 +18,7 @@
 		2F6B1E162401B2E500DA5765 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F6B1E142401B2E500DA5765 /* LaunchScreen.storyboard */; };
 		2F7A734324300493005C12EC /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 2F7A734224300493005C12EC /* Amplitude */; };
 		2F7A73452430D7AF005C12EC /* UserNameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A73442430D7AF005C12EC /* UserNameStore.swift */; };
+		2F7A735F24311BFE005C12EC /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A735E24311BFE005C12EC /* Client.swift */; };
 		2FA47D25240B224D009DF645 /* ElectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA47D24240B224D009DF645 /* ElectionViewController.swift */; };
 		2FFCF8942401B3A9002A7530 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2FFCF8932401B3A9002A7530 /* Alamofire */; };
 /* End PBXBuildFile section */
@@ -35,6 +36,7 @@
 		2F6B1E152401B2E500DA5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F6B1E172401B2E500DA5765 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F7A73442430D7AF005C12EC /* UserNameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameStore.swift; sourceTree = "<group>"; };
+		2F7A735E24311BFE005C12EC /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		2FA47D24240B224D009DF645 /* ElectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,6 +75,7 @@
 				2F6B1E092401B2E300DA5765 /* AppDelegate.swift */,
 				2F4EDC61240763360049A997 /* ElectionsViewController.swift */,
 				2F7A73442430D7AF005C12EC /* UserNameStore.swift */,
+				2F7A735E24311BFE005C12EC /* Client.swift */,
 				2FA47D24240B224D009DF645 /* ElectionViewController.swift */,
 				2F4EDC59240746600049A997 /* Participant.swift */,
 				2F4EDC5B240746EE0049A997 /* Candidate.swift */,
@@ -181,6 +184,7 @@
 				2F4EDC62240763360049A997 /* ElectionsViewController.swift in Sources */,
 				2F4EDC5A240746600049A997 /* Participant.swift in Sources */,
 				2F4EDC6024075A5D0049A997 /* Elections.swift in Sources */,
+				2F7A735F24311BFE005C12EC /* Client.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
