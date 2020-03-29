@@ -74,7 +74,14 @@ class ElectionsViewController: UITableViewController {
         dismiss(animated: false, completion: nil)
         navigationController?.popToRootViewController(animated: false)
 
+        // If election exists present it
+        let lowercasedElectionIDs = elections.map { $0.id.lowercased() }
+        guard !((lowercasedElectionIDs).contains(electionID.lowercased())) else {
+            presentElectionWithID(electionID)
+            return
+        }
 
+        // Join if user has a name, o/w ask for name first
         if userNameStore.nameExists() {
             joinElectionWithID(electionID)
         } else {
@@ -82,22 +89,9 @@ class ElectionsViewController: UITableViewController {
                 self.joinElectionWithID(electionID)
             }
         }
-
-
-        let lowercasedElectionIDs = elections.map { $0.id.lowercased() }
-        guard !((lowercasedElectionIDs).contains(electionID.lowercased())) else {
-            presentElectionWithID(electionID)
-            return
-        }
     }
 
-    public func joinElectionWithID(_ electionID: String) {
-        navigationController?.popToRootViewController(animated: true)
-        let lowercasedElectionIDs = elections.map { $0.id.lowercased() }
-        guard !((lowercasedElectionIDs).contains(electionID.lowercased())) else {
-            presentElectionWithID(electionID)
-            return
-        }
+    private func joinElectionWithID(_ electionID: String) {
         let fullURL = "\(url)\(electionID)/participants/"
         let parameters = [
             "name": userNameStore.name
@@ -109,8 +103,7 @@ class ElectionsViewController: UITableViewController {
                 guard let election = response.value,
                     let strongSelf = self else { return }
                 strongSelf.elections.append(election)
-                let electionViewController = ElectionViewController(session: strongSelf.session, election: election)
-                strongSelf.navigationController?.pushViewController(electionViewController, animated: true)
+                strongSelf.presentElectionWithID(electionID)
         }
     }
 

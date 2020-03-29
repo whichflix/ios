@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Invalid URL")
                 return false
         }
-        electionsViewController.joinElectionWithID(electionID)
+        electionsViewController.userTappedLinkToJoinElectionWithID(electionID)
 
         return true
 
