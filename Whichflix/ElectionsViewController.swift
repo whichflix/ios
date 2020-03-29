@@ -73,11 +73,11 @@ class ElectionsViewController: UITableViewController {
             presentElectionWithID(electionID)
             return
         }
-        let url = "https://warm-wave-23838.herokuapp.com/v1/elections/\(electionID)/participants/"
+        let fullURL = "\(url)\(electionID)/participants/"
         let parameters = [
             "name": UserDefaults.standard.string(forKey: "userName")!
         ]
-        session.request(url,method: .post, parameters: parameters)
+        session.request(fullURL, method: .post, parameters: parameters)
             .validate()
             .responseDecodable(of: Election.self) { [weak self] response in
                 print(response)
@@ -101,7 +101,6 @@ class ElectionsViewController: UITableViewController {
         let savedName = UserDefaults.standard.string(forKey: "userName") ?? ""
         let title = savedName.count > 0 ? savedName : "Enter Name"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(userTappedChangeUserName))
-        let url = "https://warm-wave-23838.herokuapp.com/v1/elections/"
         session.request(url, method: .get)
             .validate()
             .responseDecodable(of: Elections.self) { response in
