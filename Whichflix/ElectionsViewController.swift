@@ -69,7 +69,7 @@ class ElectionsViewController: UITableViewController {
         navigationController?.popToRootViewController(animated: true)
         let lowercasedElectionIDs = elections.map { $0.id.lowercased() }
         guard !((lowercasedElectionIDs).contains(electionID.lowercased())) else {
-            showAlreadyInElectionPrompt()
+            presentElectionWithID(electionID)
             return
         }
         let url = "https://warm-wave-23838.herokuapp.com/v1/elections/\(electionID)/participants/"
@@ -90,16 +90,16 @@ class ElectionsViewController: UITableViewController {
 
     // MARK: Private Functions
 
-    private func showAlreadyInElectionPrompt() {
-        let alertController = UIAlertController(title: "You're already in this election", message: nil, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        present(alertController, animated: true, completion: nil)
+    private func presentElectionWithID(_ electionID: String) {
+        guard let election = (elections.filter { $0.id == electionID }.first) else { return }
+        let electionViewController = ElectionViewController(session:session, election:  election)
+        navigationController?.pushViewController(electionViewController, animated: true)
     }
 
     private func refresh() {
         let savedName = UserDefaults.standard.string(forKey: "userName") ?? ""
         let title = savedName.count > 0 ? savedName : "Enter Name"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(promptUserName))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(userTappedChangeUserName))
         let url = "https://warm-wave-23838.herokuapp.com/v1/elections/"
         session.request(url, method: .get)
             .validate()
