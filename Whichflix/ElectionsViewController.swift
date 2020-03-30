@@ -43,6 +43,14 @@ class ElectionsViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else { return }
+        Client.shared.leaveElectionWithID(elections[indexPath.row].id) { [weak self] _ in
+            self?.elections.remove(at: indexPath.row)
+        }
+    }
+
+
 
     // MARK: UITableViewControllerDelegate
 

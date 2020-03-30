@@ -63,6 +63,16 @@ struct Client {
         }
     }
 
+    func leaveElectionWithID(_ electionID: String, completion: @escaping (Election?) -> ()) {
+        let url = "\(baseURL)/elections/\(electionID)/participants/"
+        session.request(url, method: .delete)
+            .validate()
+            .responseDecodable(of: Election.self) { response in
+                let election = response.value
+                completion(election)
+        }
+    }
+
     func changeElectionName(newName: String, electionID: String, completion: @escaping (Election?) -> ()) {
         let url = "\(baseURL)/elections/\(electionID)/"
         let parameters = [
