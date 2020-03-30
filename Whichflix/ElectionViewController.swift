@@ -20,9 +20,10 @@ class ElectionViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(userTappedEdit))
         let shareButton = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(userTappedShare))
-        navigationItem.rightBarButtonItems = [shareButton, editButton]
+        let buddiesButton = UIBarButtonItem(title: "Buddies", style: .plain, target: self, action: #selector(userTappedShowPartipants))
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(userTappedEdit))
+        navigationItem.rightBarButtonItems = [shareButton, buddiesButton, editButton]
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -61,5 +62,10 @@ class ElectionViewController: UITableViewController {
         alertController.addAction(submitAction)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alertController, animated: true)
+    }
+
+    @objc private func userTappedShowPartipants() {
+        let viewController = PartipantsViewController(participants: election.participants)
+        present(UINavigationController(rootViewController: viewController), animated: true, completion: nil)
     }
 }

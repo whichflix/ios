@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F250631243221590038925E /* ParticpantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F250630243221590038925E /* ParticpantsViewController.swift */; };
 		2F4EDC5A240746600049A997 /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EDC59240746600049A997 /* Participant.swift */; };
 		2F4EDC5C240746EE0049A997 /* Candidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EDC5B240746EE0049A997 /* Candidate.swift */; };
 		2F4EDC5E240748570049A997 /* Election.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EDC5D240748570049A997 /* Election.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F250630243221590038925E /* ParticpantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticpantsViewController.swift; sourceTree = "<group>"; };
 		2F4EDC59240746600049A997 /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		2F4EDC5B240746EE0049A997 /* Candidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidate.swift; sourceTree = "<group>"; };
 		2F4EDC5D240748570049A997 /* Election.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Election.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				2F4EDC61240763360049A997 /* ElectionsViewController.swift */,
 				2F7A73442430D7AF005C12EC /* UserNameStore.swift */,
 				2F7A735E24311BFE005C12EC /* Client.swift */,
+				2F250630243221590038925E /* ParticpantsViewController.swift */,
 				2FA47D24240B224D009DF645 /* ElectionViewController.swift */,
 				2F4EDC59240746600049A997 /* Participant.swift */,
 				2F4EDC5B240746EE0049A997 /* Candidate.swift */,
@@ -184,6 +187,7 @@
 				2F4EDC62240763360049A997 /* ElectionsViewController.swift in Sources */,
 				2F4EDC5A240746600049A997 /* Participant.swift in Sources */,
 				2F4EDC6024075A5D0049A997 /* Elections.swift in Sources */,
+				2F250631243221590038925E /* ParticpantsViewController.swift in Sources */,
 				2F7A735F24311BFE005C12EC /* Client.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
