@@ -94,7 +94,7 @@ class ElectionsViewController: UITableViewController {
     private func refresh() {
         let title = UserNameStore.shared.nameExists() ? UserNameStore.shared.name : "Enter Name"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(userTappedChangeUserName))
-        Client.shared.fetchElections() { [weak self] in
+      Client.shared.fetchElections() { [weak self] in
             guard let elections = $0 else { return }
             self?.elections = elections
         }
