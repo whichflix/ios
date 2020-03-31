@@ -22,7 +22,7 @@ class ElectionsViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refreshElections), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(userPulledToRefresh), for: .valueChanged)
         tableView.refreshControl = refreshControl
     }
 
@@ -62,27 +62,6 @@ class ElectionsViewController: UITableViewController {
 
 
     // MARK: Public Functions
-    public func userTappedLinkToJoinElectionWithID(_ electionID: String) {
-        // Dismiss any view controllers and pop to root
-        dismiss(animated: false, completion: nil)
-        navigationController?.popToRootViewController(animated: false)
-
-        // If election exists present it
-        let lowercasedElectionIDs = elections.map { $0.id.lowercased() }
-        guard !((lowercasedElectionIDs).contains(electionID.lowercased())) else {
-            presentElectionWithID(electionID)
-            return
-        }
-
-        // Join if user has a name, o/w ask for name first
-        if UserNameStore.shared.nameExists() {
-            joinElectionWithID(electionID)
-        } else {
-            promptForUserName() { [unowned self, electionID] in
-                self.joinElectionWithID(electionID)
-            }
-        }
-    }
 
     private func joinElectionWithID(_ electionID: String) {
         Client.shared.joinElectionWithID(electionID) { [weak self] in
@@ -100,7 +79,7 @@ class ElectionsViewController: UITableViewController {
         navigationController?.pushViewController(electionViewController, animated: true)
     }
 
-    @objc private func refreshElections() {
+    private func refreshElections() {
         let title = UserNameStore.shared.nameExists() ? UserNameStore.shared.name : "Enter Name"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(userTappedChangeUserName))
         self.tableView.refreshControl?.endRefreshing()
@@ -111,7 +90,7 @@ class ElectionsViewController: UITableViewController {
         }
     }
 
-    @objc private func createElectionWithMovieNightName(_ name: String) {
+    private func createElectionWithMovieNightName(_ name: String) {
 
         Client.shared.createElectionWithName(name) { [weak self] in
             guard let election = $0 else { return }
@@ -119,19 +98,7 @@ class ElectionsViewController: UITableViewController {
         }
     }
 
-    @objc private func userTappedCreateMovieNight() {
-        Amplitude.instance()?.logEvent("User Tapped Create Movie")
-        if UserNameStore.shared.nameExists() {
-            promptForMovieNightName()
-        } else {
-            promptForUserName() { [weak self] in
-                self?.promptForMovieNightName()
-            }
-        }
-    }
-
-
-    @objc private func promptForMovieNightName() {
+    private func promptForMovieNightName() {
         let alertController = UIAlertController(title: "Name this movie night", message: nil, preferredStyle: .alert)
         alertController.addTextField()
 
@@ -144,11 +111,6 @@ class ElectionsViewController: UITableViewController {
         alertController.addAction(submitAction)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alertController, animated: true)
-    }
-
-    @objc private func userTappedChangeUserName() {
-        Amplitude.instance()?.logEvent("User Tapped Change User Name")
-        promptForUserName() {}
     }
 
     private func promptForUserName(completionHandler: @escaping () -> Void) {
@@ -169,4 +131,51 @@ class ElectionsViewController: UITableViewController {
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alertController, animated: true)
     }
+
+
+    // MARK: User Actions
+
+    public func userTappedLinkToJoinElectionWithID(_ electionID: String) {
+        // Dismiss any view controllers and pop to root
+        dismiss(animated: false, completion: nil)
+        navigationController?.popToRootViewController(animated: false)
+
+        // If election exists present it
+        let lowercasedElectionIDs = elections.map { $0.id.lowercased() }
+        guard !((lowercasedElectionIDs).contains(electionID.lowercased())) else {
+            presentElectionWithID(electionID)
+            return
+        }
+
+        // Join if user has a name, o/w ask for name first
+        if UserNameStore.shared.nameExists() {
+            joinElectionWithID(electionID)
+        } else {
+            promptForUserName() { [unowned self, electionID] in
+                self.joinElectionWithID(electionID)
+            }
+        }
+        Amplitude.instance()?.logEvent("Elections List View: User Came From Link To Join Election")
+    }
+
+    @objc private func userPulledToRefresh() {
+        Amplitude.instance()?.logEvent("Elections List View: User Pulled To Refresh")
+        refreshElections()
+    }
+
+    @objc private func userTappedCreateMovieNight() {
+          Amplitude.instance()?.logEvent("Elections List View: User Tapped Create Movie")
+          if UserNameStore.shared.nameExists() {
+              promptForMovieNightName()
+          } else {
+              promptForUserName() { [weak self] in
+                  self?.promptForMovieNightName()
+              }
+          }
+      }
+
+      @objc private func userTappedChangeUserName() {
+          Amplitude.instance()?.logEvent("User Tapped Change User Name")
+          promptForUserName() {}
+      }
 }
