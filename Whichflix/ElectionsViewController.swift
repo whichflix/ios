@@ -6,8 +6,6 @@ class ElectionsViewController: UITableViewController {
 
     // MARK: Properties
 
-    private let url = "https://warm-wave-23838.herokuapp.com/v1/elections/"
-
     private var elections = [Election]() {
         didSet {
             tableView.reloadData()
@@ -23,11 +21,14 @@ class ElectionsViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "+", style: .done, target: self, action: #selector(userTappedCreateMovieNight))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshElections), for: .valueChanged)
+        tableView.refreshControl = refreshControl
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        refresh()
+        refreshElections()
     }
 
 
@@ -99,12 +100,14 @@ class ElectionsViewController: UITableViewController {
         navigationController?.pushViewController(electionViewController, animated: true)
     }
 
-    private func refresh() {
+    @objc private func refreshElections() {
         let title = UserNameStore.shared.nameExists() ? UserNameStore.shared.name : "Enter Name"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(userTappedChangeUserName))
+        self.tableView.refreshControl?.endRefreshing()
       Client.shared.fetchElections() { [weak self] in
             guard let elections = $0 else { return }
             self?.elections = elections
+            self?.tableView.refreshControl?.endRefreshing()
         }
     }
 
@@ -158,7 +161,7 @@ class ElectionsViewController: UITableViewController {
 
         let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController, completionHandler, self] _ in
             UserNameStore.shared.name = alertController.textFields![0].text ?? ""
-            self.refresh()
+            self.refreshElections()
             completionHandler()
         }
 
