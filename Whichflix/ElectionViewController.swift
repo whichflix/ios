@@ -24,15 +24,21 @@ class ElectionViewController: UITableViewController {
         let buddiesButton = UIBarButtonItem(title: "Buddies", style: .plain, target: self, action: #selector(userTappedShowPartipants))
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(userTappedEdit))
         navigationItem.rightBarButtonItems = [shareButton, buddiesButton, editButton]
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshElection), for: .valueChanged)
+        tableView.refreshControl = refreshControl
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        refresh()
+        refreshElection()
     }
 
-    private func refresh() {
-        title = election.title
+    @objc private func refreshElection() {
+        Client.shared.fetchElectionWithID(election.id) { [weak self] in
+            guard let election = $0 else { return }
+            self?.election = election
+        }
     }
 
     @objc private func userTappedShare() {
@@ -65,7 +71,7 @@ class ElectionViewController: UITableViewController {
     }
 
     @objc private func userTappedShowPartipants() {
-        let viewController = PartipantsViewController(participants: election.participants)
+        let viewController = PartipantsViewController(election: election)
         present(UINavigationController(rootViewController: viewController), animated: true, completion: nil)
     }
 }

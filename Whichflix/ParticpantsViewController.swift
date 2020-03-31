@@ -1,14 +1,14 @@
 import UIKit
 
 class PartipantsViewController: UITableViewController {
-    private var participants: [Participant] {
+    private var election: Election {
         didSet {
             tableView.reloadData()
         }
     }
 
-    init(participants: [Participant]) {
-        self.participants = participants
+    init(election: Election) {
+        self.election = election
         super.init(style: .plain)
         title = "Participants"
         let dismissButton = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(userTappedDismiss))
@@ -23,12 +23,12 @@ class PartipantsViewController: UITableViewController {
     // MARK: UITableViewControllerDataSource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return participants.count
+        return election.participants.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = participants[indexPath.row].name
+        cell.textLabel?.text = election.participants[indexPath.row].name
         return cell
     }
 
