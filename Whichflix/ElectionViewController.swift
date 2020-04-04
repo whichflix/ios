@@ -1,7 +1,9 @@
 import UIKit
 import Alamofire
 
-class ElectionViewController: UITableViewController {
+class ElectionViewController: UITableViewController, ElectionChangeDelegate {
+
+    weak var delegate: ElectionChangeDelegate?
 
     private var election: Election {
         didSet {
@@ -21,9 +23,8 @@ class ElectionViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let shareButton = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(userTappedShare))
-        let buddiesButton = UIBarButtonItem(title: "Buddies", style: .plain, target: self, action: #selector(userTappedShowPartipants))
-        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(userTappedEdit))
-        navigationItem.rightBarButtonItems = [shareButton, buddiesButton, editButton]
+        let moreButton = UIBarButtonItem(title: "More", style: .plain, target: self, action: #selector(userTappedShowMore))
+        navigationItem.rightBarButtonItems = [shareButton, moreButton]
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshElection), for: .valueChanged)
         tableView.refreshControl = refreshControl
@@ -47,31 +48,21 @@ class ElectionViewController: UITableViewController {
         present(activityViewController, animated: true)
     }
 
-    @objc private func userTappedEdit() {
-        let alertController = UIAlertController(title: "Rename movie night", message: nil, preferredStyle: .alert)
-        alertController.addTextField()
-
-        let textField = alertController.textFields![0]
-        textField.text = election.title
-        textField.placeholder = "Enter a movie night name"
-
-        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController, self] _ in
-            let movieNightName = alertController.textFields![0].text!
-            if movieNightName.count > 0 {
-                Client.shared.changeElectionName(newName: movieNightName, electionID: self.election.id) { [weak self] in
-                    guard let election = $0 else { return }
-                    self?.election = election
-                }
-            }
-        }
-
-        alertController.addAction(submitAction)
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(alertController, animated: true)
+    @objc private func userTappedShowMore() {
+        let viewController = ElectionMoreViewControler(election: election)
+        viewController.delegate = self
+        present(UINavigationController(rootViewController: viewController), animated: true, completion: nil)
     }
 
-    @objc private func userTappedShowPartipants() {
-        let viewController = PartipantsViewController(election: election)
-        present(UINavigationController(rootViewController: viewController), animated: true, completion: nil)
+
+    // MARK: ElectionChangeDelegate
+
+    func electionChangeDidUpdateElection(election: Election) {
+        self.election = election
+        delegate?.electionChangeDidUpdateElection(election: election)
+    }
+
+    func electionChangeDidLeaveElection(election: Election) {
+        delegate?.electionChangeDidLeaveElection(election: election)
     }
 }

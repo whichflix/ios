@@ -2,7 +2,7 @@ import UIKit
 import Alamofire
 import Amplitude
 
-class ElectionsViewController: UITableViewController {
+class ElectionsViewController: UITableViewController, ElectionChangeDelegate {
 
     // MARK: Properties
 
@@ -57,6 +57,7 @@ class ElectionsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewController = ElectionViewController(election: elections[indexPath.row])
+        viewController.delegate = self
         navigationController?.pushViewController(viewController, animated: true)
     }
 
@@ -82,7 +83,7 @@ class ElectionsViewController: UITableViewController {
     private func refreshElections() {
         let title = UserNameStore.shared.nameExists() ? UserNameStore.shared.name : "Enter Name"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(userTappedChangeUserName))
-        self.tableView.refreshControl?.endRefreshing()
+        self.tableView.refreshControl?.beginRefreshing()
       Client.shared.fetchElections() { [weak self] in
             guard let elections = $0 else { return }
             self?.elections = elections
@@ -132,6 +133,11 @@ class ElectionsViewController: UITableViewController {
         present(alertController, animated: true)
     }
 
+    private func popAll() {
+        dismiss(animated: false, completion: nil)
+        navigationController?.popToRootViewController(animated: false)
+    }
+
 
     // MARK: User Actions
 
@@ -178,4 +184,25 @@ class ElectionsViewController: UITableViewController {
           Amplitude.instance()?.logEvent("User Tapped Change User Name")
           promptForUserName() {}
       }
+
+
+    // MARK: ElectionChangeDelegate
+
+    func electionChangeDidUpdateElection(election updatedElection: Election) {
+        guard let index = elections.map({ $0.id }).firstIndex(of: updatedElection.id) else {
+            refreshElections()
+            return
+        }
+        elections[index] = updatedElection
+    }
+
+    func electionChangeDidLeaveElection(election electionLeft: Election) {
+        guard let index = elections.map({ $0.id }).firstIndex(of: electionLeft.id) else {
+            refreshElections()
+            return
+        }
+        elections.remove(at: index)
+        self.popAll()
+    }
+
 }

@@ -1,6 +1,7 @@
 import UIKit
 
 class PartipantsViewController: UITableViewController {
+
     private var election: Election {
         didSet {
             tableView.reloadData()
