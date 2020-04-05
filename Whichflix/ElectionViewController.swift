@@ -24,7 +24,8 @@ class ElectionViewController: UITableViewController, ElectionChangeDelegate {
         super.viewDidLoad()
         let shareButton = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(userTappedShare))
         let moreButton = UIBarButtonItem(title: "More", style: .plain, target: self, action: #selector(userTappedShowMore))
-        navigationItem.rightBarButtonItems = [shareButton, moreButton]
+        let searchButton = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(userTappedSearch))
+        navigationItem.rightBarButtonItems = [searchButton, shareButton, moreButton]
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshElection), for: .valueChanged)
         tableView.refreshControl = refreshControl
@@ -51,6 +52,11 @@ class ElectionViewController: UITableViewController, ElectionChangeDelegate {
     @objc private func userTappedShowMore() {
         let viewController = ElectionMoreViewControler(election: election)
         viewController.delegate = self
+        present(UINavigationController(rootViewController: viewController), animated: true, completion: nil)
+    }
+
+    @objc private func userTappedSearch() {
+        let viewController = SearchMovieViewController()
         present(UINavigationController(rootViewController: viewController), animated: true, completion: nil)
     }
 

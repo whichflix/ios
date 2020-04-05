@@ -1,9 +1,25 @@
-//
-//  Movie.swift
-//  Whichflix
-//
-//  Created by Dasmer Singh on 4/4/20.
-//  Copyright © 2020 Dastronics. All rights reserved.
-//
+struct Movie: Codable, Identifiable {
+    let id: String
+    let title: String
+    let imageURL: String
+    let description: String
+    let releaseYear: String
+    let genres: [String]
 
-import Foundation
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case imageURL = "image_url"
+        case description
+        case releaseYear = "release_year"
+        case genres
+    }
+}
+
+struct Movies: Codable {
+    let all: [Movie]
+
+    enum CodingKeys: String, CodingKey {
+      case all = "results"
+    }
+}

@@ -86,4 +86,18 @@ struct Client {
         }
     }
 
+    func searchForMoviesWithQuery(searchQuery: String, completion: @escaping ([Movie]?) -> ()) {
+        let url = "\(baseURL)/movies/search/"
+        let parameters = [
+            "query": "\(searchQuery)",
+        ]
+        session.request(url, method: .get, parameters: parameters)
+            .validate()
+            .responseDecodable(of: Movies.self) { response in
+                let movies = response.value?.all
+                completion(movies)
+            }
+
+    }
+
 }

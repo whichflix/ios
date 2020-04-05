@@ -10,6 +10,8 @@
 		2F13CC2C2438B11D000A199F /* ElectionChangeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F13CC2B2438B11D000A199F /* ElectionChangeDelegate.swift */; };
 		2F250631243221590038925E /* ParticpantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F250630243221590038925E /* ParticpantsViewController.swift */; };
 		2F25063324362B3F0038925E /* ElectionMoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F25063224362B3F0038925E /* ElectionMoreViewController.swift */; };
+		2F37D67524395FD70047A388 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F37D67424395FD70047A388 /* Movie.swift */; };
+		2F37D677243964550047A388 /* SearchMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F37D676243964550047A388 /* SearchMovieViewController.swift */; };
 		2F4EDC5A240746600049A997 /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EDC59240746600049A997 /* Participant.swift */; };
 		2F4EDC5C240746EE0049A997 /* Candidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EDC5B240746EE0049A997 /* Candidate.swift */; };
 		2F4EDC5E240748570049A997 /* Election.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EDC5D240748570049A997 /* Election.swift */; };
@@ -30,6 +32,8 @@
 		2F13CC2B2438B11D000A199F /* ElectionChangeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionChangeDelegate.swift; sourceTree = "<group>"; };
 		2F250630243221590038925E /* ParticpantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticpantsViewController.swift; sourceTree = "<group>"; };
 		2F25063224362B3F0038925E /* ElectionMoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionMoreViewController.swift; sourceTree = "<group>"; };
+		2F37D67424395FD70047A388 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		2F37D676243964550047A388 /* SearchMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieViewController.swift; sourceTree = "<group>"; };
 		2F4EDC59240746600049A997 /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		2F4EDC5B240746EE0049A997 /* Candidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidate.swift; sourceTree = "<group>"; };
 		2F4EDC5D240748570049A997 /* Election.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Election.swift; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 				2F13CC2B2438B11D000A199F /* ElectionChangeDelegate.swift */,
 				2F4EDC61240763360049A997 /* ElectionsViewController.swift */,
 				2FA47D24240B224D009DF645 /* ElectionViewController.swift */,
+				2F37D676243964550047A388 /* SearchMovieViewController.swift */,
 				2F25063224362B3F0038925E /* ElectionMoreViewController.swift */,
 				2F250630243221590038925E /* ParticpantsViewController.swift */,
 				2F7A73442430D7AF005C12EC /* UserNameStore.swift */,
@@ -90,6 +95,7 @@
 				2F4EDC5B240746EE0049A997 /* Candidate.swift */,
 				2F4EDC5D240748570049A997 /* Election.swift */,
 				2F4EDC5F24075A5D0049A997 /* Elections.swift */,
+				2F37D67424395FD70047A388 /* Movie.swift */,
 				2F6B1E0F2401B2E500DA5765 /* Assets.xcassets */,
 				2F6B1E142401B2E500DA5765 /* LaunchScreen.storyboard */,
 				2F6B1E172401B2E500DA5765 /* Info.plist */,
@@ -190,9 +196,11 @@
 				2F4EDC5E240748570049A997 /* Election.swift in Sources */,
 				2F13CC2C2438B11D000A199F /* ElectionChangeDelegate.swift in Sources */,
 				2F7A73452430D7AF005C12EC /* UserNameStore.swift in Sources */,
+				2F37D677243964550047A388 /* SearchMovieViewController.swift in Sources */,
 				2F4EDC5C240746EE0049A997 /* Candidate.swift in Sources */,
 				2F4EDC62240763360049A997 /* ElectionsViewController.swift in Sources */,
 				2F4EDC5A240746600049A997 /* Participant.swift in Sources */,
+				2F37D67524395FD70047A388 /* Movie.swift in Sources */,
 				2F25063324362B3F0038925E /* ElectionMoreViewController.swift in Sources */,
 				2F4EDC6024075A5D0049A997 /* Elections.swift in Sources */,
 				2F250631243221590038925E /* ParticpantsViewController.swift in Sources */,
