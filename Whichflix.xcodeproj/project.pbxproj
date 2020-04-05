@@ -12,6 +12,8 @@
 		2F25063324362B3F0038925E /* ElectionMoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F25063224362B3F0038925E /* ElectionMoreViewController.swift */; };
 		2F37D67524395FD70047A388 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F37D67424395FD70047A388 /* Movie.swift */; };
 		2F37D677243964550047A388 /* SearchMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F37D676243964550047A388 /* SearchMovieViewController.swift */; };
+		2F37D67A24397D5D0047A388 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2F37D67924397D5D0047A388 /* AlamofireImage */; };
+		2F37D67E243984EE0047A388 /* placeholder-movie.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F37D67D243984EE0047A388 /* placeholder-movie.jpg */; };
 		2F4EDC5A240746600049A997 /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EDC59240746600049A997 /* Participant.swift */; };
 		2F4EDC5C240746EE0049A997 /* Candidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EDC5B240746EE0049A997 /* Candidate.swift */; };
 		2F4EDC5E240748570049A997 /* Election.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4EDC5D240748570049A997 /* Election.swift */; };
@@ -34,6 +36,7 @@
 		2F25063224362B3F0038925E /* ElectionMoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionMoreViewController.swift; sourceTree = "<group>"; };
 		2F37D67424395FD70047A388 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		2F37D676243964550047A388 /* SearchMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieViewController.swift; sourceTree = "<group>"; };
+		2F37D67D243984EE0047A388 /* placeholder-movie.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "placeholder-movie.jpg"; sourceTree = "<group>"; };
 		2F4EDC59240746600049A997 /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		2F4EDC5B240746EE0049A997 /* Candidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidate.swift; sourceTree = "<group>"; };
 		2F4EDC5D240748570049A997 /* Election.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Election.swift; sourceTree = "<group>"; };
@@ -57,6 +60,7 @@
 			files = (
 				2F7A734324300493005C12EC /* Amplitude in Frameworks */,
 				2FFCF8942401B3A9002A7530 /* Alamofire in Frameworks */,
+				2F37D67A24397D5D0047A388 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +99,7 @@
 				2F4EDC5B240746EE0049A997 /* Candidate.swift */,
 				2F4EDC5D240748570049A997 /* Election.swift */,
 				2F4EDC5F24075A5D0049A997 /* Elections.swift */,
+				2F37D67D243984EE0047A388 /* placeholder-movie.jpg */,
 				2F37D67424395FD70047A388 /* Movie.swift */,
 				2F6B1E0F2401B2E500DA5765 /* Assets.xcassets */,
 				2F6B1E142401B2E500DA5765 /* LaunchScreen.storyboard */,
@@ -131,6 +136,7 @@
 			packageProductDependencies = (
 				2FFCF8932401B3A9002A7530 /* Alamofire */,
 				2F7A734224300493005C12EC /* Amplitude */,
+				2F37D67924397D5D0047A388 /* AlamofireImage */,
 			);
 			productName = Whichflix;
 			productReference = 2F6B1E062401B2E300DA5765 /* Whichflix.app */;
@@ -163,6 +169,7 @@
 			packageReferences = (
 				2FFCF8922401B3A9002A7530 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				2F7A734124300493005C12EC /* XCRemoteSwiftPackageReference "Amplitude-iOS" */,
+				2F37D67824397D5D0047A388 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = 2F6B1E072401B2E300DA5765 /* Products */;
 			projectDirPath = "";
@@ -178,6 +185,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F37D67E243984EE0047A388 /* placeholder-movie.jpg in Resources */,
 				2F6B1E162401B2E500DA5765 /* LaunchScreen.storyboard in Resources */,
 				2F6B1E132401B2E500DA5765 /* Preview Assets.xcassets in Resources */,
 				2F6B1E102401B2E500DA5765 /* Assets.xcassets in Resources */,
@@ -402,6 +410,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2F37D67824397D5D0047A388 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.3;
+			};
+		};
 		2F7A734124300493005C12EC /* XCRemoteSwiftPackageReference "Amplitude-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/amplitude/Amplitude-iOS";
@@ -421,6 +437,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2F37D67924397D5D0047A388 /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F37D67824397D5D0047A388 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
+		};
 		2F7A734224300493005C12EC /* Amplitude */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2F7A734124300493005C12EC /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;

@@ -1,4 +1,5 @@
 import UIKit
+import AlamofireImage
 
 class SearchMovieViewController: UIViewController {
 
@@ -29,22 +30,17 @@ class SearchMovieViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         Client.shared.searchForMoviesWithQuery(searchQuery: "") { [weak self] movies in
             guard let movies = movies else { return }
             self?.results = movies
         }
 
-        let views: [String: AnyObject] = [
-            "tableView": tableViewController.view,
-            "topLayoutGuide": view.safeAreaLayoutGuide.topAnchor
-        ]
-
         view.addSubview(tableView)
-
-        var constraints = [NSLayoutConstraint]()
-        constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: views)
-        constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: nil, views: views)
-        NSLayoutConstraint.activate(constraints)
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 
     required init?(coder: NSCoder) {
@@ -64,8 +60,9 @@ extension SearchMovieViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let movie = results[indexPath.row]
-        let cell = UITableViewCell()
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
         cell.textLabel?.text = movie.title
+        cell.imageView?.af.setImage(withURL: URL(string: movie.imageURL)!, placeholderImage: UIImage(named: "placeholder-movie.jpg"))
         return cell
     }
 }
