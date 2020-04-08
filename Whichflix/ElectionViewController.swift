@@ -1,5 +1,5 @@
 import UIKit
-import Alamofire
+import AlamofireImage
 
 protocol MovieAddAttemptDelegate: class {
     func userAttemptedToAddMovie(movie: Movie)
@@ -28,6 +28,8 @@ class ElectionViewController: UITableViewController, ElectionChangeDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+
         let shareButton = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(userTappedShare))
         let moreButton = UIBarButtonItem(title: "More", style: .plain, target: self, action: #selector(userTappedShowMore))
         let searchButton = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(userTappedSearch))
@@ -100,8 +102,11 @@ extension ElectionViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = election.candidates[indexPath.row].id
+        let movie = election.candidates[indexPath.row].movie
+
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        cell.textLabel?.text = movie.title
+        cell.imageView?.af.setImage(withURL: URL(string: movie.imageURL)!, placeholderImage: UIImage(named: "placeholder-movie.jpg"))
         return cell
     }
 }
