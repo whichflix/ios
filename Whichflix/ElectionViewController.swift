@@ -12,6 +12,7 @@ class ElectionViewController: UITableViewController, ElectionChangeDelegate {
     private var election: Election {
         didSet {
             title = election.title
+            tableView.reloadData()
             delegate?.electionChangeDidUpdateElection(election: election)
         }
     }
