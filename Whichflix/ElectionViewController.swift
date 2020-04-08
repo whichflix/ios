@@ -1,6 +1,10 @@
 import UIKit
 import Alamofire
 
+protocol MovieAddAttemptDelegate: class {
+    func userAttemptedToAddMovie(movie: Movie)
+}
+
 class ElectionViewController: UITableViewController, ElectionChangeDelegate {
 
     weak var delegate: ElectionChangeDelegate?
@@ -8,6 +12,7 @@ class ElectionViewController: UITableViewController, ElectionChangeDelegate {
     private var election: Election {
         didSet {
             title = election.title
+            delegate?.electionChangeDidUpdateElection(election: election)
         }
     }
 
@@ -36,6 +41,13 @@ class ElectionViewController: UITableViewController, ElectionChangeDelegate {
         refreshElection()
     }
 
+    private func userAttemptedAddMovie(movie: Movie) {
+        Client.shared.createCandidateInElection(election: election, forMovie: movie) { [weak self] in
+            guard let election = $0 else { return }
+            self?.election = election
+        }
+    }
+
     @objc private func refreshElection() {
         Client.shared.fetchElectionWithID(election.id) { [weak self] in
             guard let election = $0 else { return }
@@ -57,6 +69,7 @@ class ElectionViewController: UITableViewController, ElectionChangeDelegate {
 
     @objc private func userTappedSearch() {
         let viewController = SearchMovieViewController()
+        viewController.delegate = self
         present(UINavigationController(rootViewController: viewController), animated: true, completion: nil)
     }
 
@@ -65,10 +78,29 @@ class ElectionViewController: UITableViewController, ElectionChangeDelegate {
 
     func electionChangeDidUpdateElection(election: Election) {
         self.election = election
-        delegate?.electionChangeDidUpdateElection(election: election)
     }
 
     func electionChangeDidLeaveElection(election: Election) {
         delegate?.electionChangeDidLeaveElection(election: election)
+    }
+}
+
+extension ElectionViewController: MovieAddAttemptDelegate {
+    func userAttemptedToAddMovie(movie: Movie) {
+        dismiss(animated: true, completion: nil)
+        userAttemptedAddMovie(movie: movie)
+    }
+}
+
+extension ElectionViewController {
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return election.candidates.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = election.candidates[indexPath.row].id
+        return cell
     }
 }

@@ -204,5 +204,4 @@ class ElectionsViewController: UITableViewController, ElectionChangeDelegate {
         elections.remove(at: index)
         self.popAll()
     }
-
 }

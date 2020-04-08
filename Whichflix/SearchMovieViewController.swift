@@ -3,6 +3,8 @@ import AlamofireImage
 
 class SearchMovieViewController: UIViewController {
 
+    weak var delegate: MovieAddAttemptDelegate?
+
     private var results = [Movie]() {
         didSet {
             tableView.reloadData()
@@ -50,6 +52,8 @@ class SearchMovieViewController: UIViewController {
     @objc private func userTappedDismiss() {
         dismiss(animated: true, completion: nil)
     }
+
+
 }
 
 extension SearchMovieViewController: UITableViewDataSource {
@@ -69,4 +73,19 @@ extension SearchMovieViewController: UITableViewDataSource {
 
 extension SearchMovieViewController: UITableViewDelegate {
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        let movie = results[indexPath.row]
+        let viewController = MovieDetailsViewController(movie: movie)
+        viewController.delegate = self
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+
+}
+
+extension SearchMovieViewController: MovieAddAttemptDelegate  {
+    func userAttemptedToAddMovie(movie: Movie) {
+        delegate?.userAttemptedToAddMovie(movie: movie)
+    }
 }

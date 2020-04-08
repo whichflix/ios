@@ -97,7 +97,19 @@ struct Client {
                 let movies = response.value?.all
                 completion(movies)
             }
-
     }
 
+    func createCandidateInElection(election: Election, forMovie movie: Movie, completion: @escaping (Election?) -> ()) {
+        let url = "\(baseURL)/elections/\(election.id)/candidates/"
+        let parameters = [
+            "movie_id": "\(movie.id)",
+        ]
+        session.request(url, method: .post, parameters: parameters)
+            .validate()
+            .responseDecodable(of: Election.self) { response in
+                print(response)
+                let election = response.value
+                completion(election)
+            }
+    }
 }
