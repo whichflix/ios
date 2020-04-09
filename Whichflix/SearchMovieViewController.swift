@@ -23,6 +23,13 @@ class SearchMovieViewController: UIViewController {
         return viewController
     }()
 
+    private lazy var searchTextFieldView: SearchTextFieldView = {
+        let searchTextFieldView = SearchTextFieldView()
+        searchTextFieldView.translatesAutoresizingMaskIntoConstraints = false
+        searchTextFieldView.placeholder = "Type a movie name or genre"
+        return searchTextFieldView
+    }()
+
     init() {
         super.init(nibName: nil, bundle: nil)
         title = "Search"
@@ -37,11 +44,18 @@ class SearchMovieViewController: UIViewController {
             guard let movies = movies else { return }
             self?.results = movies
         }
-
+        view.addSubview(searchTextFieldView)
         view.addSubview(tableView)
+
+        searchTextFieldView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        searchTextFieldView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        searchTextFieldView.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        searchTextFieldView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+
+
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: searchTextFieldView.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 

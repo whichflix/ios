@@ -107,7 +107,6 @@ struct Client {
         session.request(url, method: .post, parameters: parameters)
             .validate()
             .responseDecodable(of: Election.self) { response in
-                print(response)
                 let election = response.value
                 completion(election)
             }
