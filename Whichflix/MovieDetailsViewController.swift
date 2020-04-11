@@ -2,6 +2,31 @@ import UIKit
 
 class MovieDetailsViewController: UITableViewController {
 
+    private enum CellKind: Int, CaseIterable {
+        case Title
+        case Year
+        case Genre
+        case Description
+
+        var name: String {
+            switch self {
+            case .Title: return "Title"
+            case .Year: return "Release Year"
+            case .Genre: return "Genre"
+            case .Description: return "Description"
+            }
+        }
+
+        func descriptionForMovie(movie: Movie) -> String {
+            switch self {
+            case .Title: return movie.title
+            case .Year: return movie.releaseYear
+            case .Genre: return movie.genres.joined(separator: " ")
+            case .Description: return movie.description
+            }
+        }
+    }
+
     weak var delegate: MovieAddAttemptDelegate?
 
     private let movie: Movie
@@ -30,5 +55,20 @@ class MovieDetailsViewController: UITableViewController {
 
     @objc private func userTappedAddToElection() {
         delegate?.userAttemptedToAddMovie(movie: movie)
+    }
+}
+
+
+extension MovieDetailsViewController {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellKind = CellKind(rawValue: indexPath.row)!
+
+        let cell = UITableViewCell()
+        cell.textLabel?.text = "\(cellKind.name): \(cellKind.descriptionForMovie(movie: movie))"
+        return cell
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return CellKind.allCases.count
     }
 }

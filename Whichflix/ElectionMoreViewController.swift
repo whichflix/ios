@@ -11,7 +11,7 @@ class ElectionMoreViewControler: UITableViewController, ElectionChangeDelegate  
         }
     }
 
-    private enum Action: Int {
+    private enum Action: Int, CaseIterable {
         case Participants
         case EditName
         case Leave
@@ -22,10 +22,6 @@ class ElectionMoreViewControler: UITableViewController, ElectionChangeDelegate  
             case .EditName: return "Edit Name"
             case .Leave: return "Leave"
             }
-        }
-
-        static var all: [Action] {
-            return [.Participants, .EditName, Leave]
         }
 
         func commitOn(moreVC: ElectionMoreViewControler) {
@@ -52,7 +48,7 @@ class ElectionMoreViewControler: UITableViewController, ElectionChangeDelegate  
     // MARK: UITableViewDataSource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Action.all.count
+        return Action.allCases.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
