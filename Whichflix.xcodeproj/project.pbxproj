@@ -29,6 +29,8 @@
 		2F7A73452430D7AF005C12EC /* UserNameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A73442430D7AF005C12EC /* UserNameStore.swift */; };
 		2F7A735F24311BFE005C12EC /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A735E24311BFE005C12EC /* Client.swift */; };
 		2FA47D25240B224D009DF645 /* ElectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA47D24240B224D009DF645 /* ElectionViewController.swift */; };
+		2FB3FC0F2442163200074D17 /* MovieDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3FC0E2442163200074D17 /* MovieDescriptionTableViewCell.swift */; };
+		2FB3FC112442245300074D17 /* MovieTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3FC102442245300074D17 /* MovieTitleTableViewCell.swift */; };
 		2FFCF8942401B3A9002A7530 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2FFCF8932401B3A9002A7530 /* Alamofire */; };
 		2FFE82FF243EB33E00E139BC /* SearchTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE82FE243EB33E00E139BC /* SearchTextFieldView.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +58,8 @@
 		2F7A73442430D7AF005C12EC /* UserNameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameStore.swift; sourceTree = "<group>"; };
 		2F7A735E24311BFE005C12EC /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		2FA47D24240B224D009DF645 /* ElectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionViewController.swift; sourceTree = "<group>"; };
+		2FB3FC0E2442163200074D17 /* MovieDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		2FB3FC102442245300074D17 /* MovieTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTitleTableViewCell.swift; sourceTree = "<group>"; };
 		2FFE82FE243EB33E00E139BC /* SearchTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextFieldView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +99,8 @@
 				2F6B1E092401B2E300DA5765 /* AppDelegate.swift */,
 				2F13CC2B2438B11D000A199F /* ElectionChangeDelegate.swift */,
 				2F4EDC61240763360049A997 /* ElectionsViewController.swift */,
+				2FB3FC102442245300074D17 /* MovieTitleTableViewCell.swift */,
+				2FB3FC0E2442163200074D17 /* MovieDescriptionTableViewCell.swift */,
 				2FA47D24240B224D009DF645 /* ElectionViewController.swift */,
 				2F25063224362B3F0038925E /* ElectionMoreViewController.swift */,
 				2F37D676243964550047A388 /* SearchMovieViewController.swift */,
@@ -211,6 +217,7 @@
 				2FA47D25240B224D009DF645 /* ElectionViewController.swift in Sources */,
 				2F6B1E0A2401B2E300DA5765 /* AppDelegate.swift in Sources */,
 				2F4EDC5E240748570049A997 /* Election.swift in Sources */,
+				2FB3FC0F2442163200074D17 /* MovieDescriptionTableViewCell.swift in Sources */,
 				2F13CC2C2438B11D000A199F /* ElectionChangeDelegate.swift in Sources */,
 				2F7A73452430D7AF005C12EC /* UserNameStore.swift in Sources */,
 				2F134D45243A8435005830B4 /* MovieDetailsViewController.swift in Sources */,
@@ -219,6 +226,7 @@
 				2F4EDC62240763360049A997 /* ElectionsViewController.swift in Sources */,
 				2F4EDC5A240746600049A997 /* Participant.swift in Sources */,
 				2F37D67524395FD70047A388 /* Movie.swift in Sources */,
+				2FB3FC112442245300074D17 /* MovieTitleTableViewCell.swift in Sources */,
 				2F25063324362B3F0038925E /* ElectionMoreViewController.swift in Sources */,
 				2F4EDC6024075A5D0049A997 /* Elections.swift in Sources */,
 				2F134D47243A8534005830B4 /* MovieDetailsHeaderView.swift in Sources */,
@@ -361,7 +369,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"Whichflix/Preview Content\"";
 				DEVELOPMENT_TEAM = 63259B266M;
 				ENABLE_PREVIEWS = YES;
@@ -382,7 +390,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"Whichflix/Preview Content\"";
 				DEVELOPMENT_TEAM = 63259B266M;
 				ENABLE_PREVIEWS = YES;

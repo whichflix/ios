@@ -41,6 +41,7 @@ class ElectionsViewController: UITableViewController, ElectionChangeDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = elections[indexPath.row].title
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
 

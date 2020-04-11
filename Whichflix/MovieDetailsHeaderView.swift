@@ -8,7 +8,7 @@ class MovieDetailsHeaderView: UIView {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .yellow
         imageView.clipsToBounds = true
         return imageView
@@ -24,16 +24,11 @@ class MovieDetailsHeaderView: UIView {
         }
 
         addSubview(imageView)
-        imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
-        imageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16).isActive = true
-        NSLayoutConstraint(item: imageView,
-                           attribute: .width,
-                           relatedBy: .equal,
-                           toItem: imageView,
-                           attribute: .height,
-                           multiplier: (2/3),
-                           constant: 0).isActive = true
+        let margin: CGFloat = 0
+        imageView.topAnchor.constraint(equalTo: topAnchor, constant: margin).isActive = true
+        imageView.leftAnchor.constraint(equalTo: leftAnchor, constant: margin).isActive = true
+        imageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -1 * margin).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -1 * margin).isActive = true
     }
 
     required init?(coder: NSCoder) {

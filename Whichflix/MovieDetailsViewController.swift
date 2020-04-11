@@ -1,39 +1,52 @@
 import UIKit
 
+class AddMovieViewController: MovieDetailsViewController {
+
+    weak var delegate: MovieAddAttemptDelegate?
+
+    override init(movie: Movie) {
+        super.init(movie: movie)
+        let addToElectionButton = UIBarButtonItem(title: "Add To Movie Night", style: .plain, target: self, action: #selector(userTappedAddToElection))
+        navigationItem.rightBarButtonItem = addToElectionButton
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc private func userTappedAddToElection() {
+        delegate?.userAttemptedToAddMovie(movie: movie)
+    }
+}
+
+class VoteMovieViewController: MovieDetailsViewController {
+
+}
+
+
 class MovieDetailsViewController: UITableViewController {
 
     private enum CellKind: Int, CaseIterable {
         case Title
+        case Description
         case Year
         case Genre
-        case Description
-
-        var name: String {
-            switch self {
-            case .Title: return "Title"
-            case .Year: return "Release Year"
-            case .Genre: return "Genre"
-            case .Description: return "Description"
-            }
-        }
 
         func descriptionForMovie(movie: Movie) -> String {
             switch self {
             case .Title: return movie.title
             case .Year: return movie.releaseYear
-            case .Genre: return movie.genres.joined(separator: " ")
+            case .Genre: return movie.genres.joined(separator: ", ")
             case .Description: return movie.description
             }
         }
     }
 
-    weak var delegate: MovieAddAttemptDelegate?
-
-    private let movie: Movie
+    fileprivate let movie: Movie
 
     private lazy var headerView: MovieDetailsHeaderView = {
         let view = MovieDetailsHeaderView(movie: movie)
-        view.frame = CGRect(x: 0, y: 0, width: 0, height:256)
+        view.frame = CGRect(x: 0, y: 0, width: 0, height:512)
         return view
     }()
 
@@ -48,13 +61,10 @@ class MovieDetailsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.tableHeaderView = headerView
-        let addToElectionButton = UIBarButtonItem(title: "Add To Movie Night", style: .plain, target: self, action: #selector(userTappedAddToElection))
-        navigationItem.rightBarButtonItem = addToElectionButton
-    }
 
-    @objc private func userTappedAddToElection() {
-        delegate?.userAttemptedToAddMovie(movie: movie)
+        tableView.tableHeaderView = headerView
+        tableView.estimatedRowHeight = 85.0
+        tableView.rowHeight = UITableView.automaticDimension
     }
 }
 
@@ -63,8 +73,22 @@ extension MovieDetailsViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellKind = CellKind(rawValue: indexPath.row)!
 
+        let standardCellLabel: String
+        let standardCellDescription: String
+
+        switch cellKind {
+        case .Title: return MovieTitleTableViewCell(title: movie.title)
+        case .Year:
+            standardCellLabel = "Release Year: "
+            standardCellDescription = movie.releaseYear
+        case .Genre:
+            standardCellLabel = movie.genres.count > 1 ? "Genres: " : "Genre: "
+            standardCellDescription = movie.genres.joined(separator: ", ")
+        case .Description: return MovieDescriptionTableViewCell(description: movie.description)
+        }
+
         let cell = UITableViewCell()
-        cell.textLabel?.text = "\(cellKind.name): \(cellKind.descriptionForMovie(movie: movie))"
+        cell.textLabel?.text = "\(standardCellLabel)\(standardCellDescription)"
         return cell
     }
 

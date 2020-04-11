@@ -105,8 +105,17 @@ extension ElectionViewController {
         let movie = election.candidates[indexPath.row].movie
 
         let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        cell.accessoryType = .disclosureIndicator
         cell.textLabel?.text = movie.title
         cell.imageView?.af.setImage(withURL: URL(string: movie.imageURL)!, placeholderImage: UIImage(named: "placeholder-movie.jpg"))
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = election.candidates[indexPath.row].movie
+
+        tableView.deselectRow(at: indexPath, animated: true)
+        let viewController = VoteMovieViewController(movie: movie)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }

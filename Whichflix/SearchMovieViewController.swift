@@ -91,7 +91,7 @@ extension SearchMovieViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
 
         let movie = results[indexPath.row]
-        let viewController = MovieDetailsViewController(movie: movie)
+        let viewController = AddMovieViewController(movie: movie)
         viewController.delegate = self
         navigationController?.pushViewController(viewController, animated: true)
     }
