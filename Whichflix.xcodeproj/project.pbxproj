@@ -31,6 +31,7 @@
 		2FA47D25240B224D009DF645 /* ElectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA47D24240B224D009DF645 /* ElectionViewController.swift */; };
 		2FB3FC0F2442163200074D17 /* MovieDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3FC0E2442163200074D17 /* MovieDescriptionTableViewCell.swift */; };
 		2FB3FC112442245300074D17 /* MovieTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3FC102442245300074D17 /* MovieTitleTableViewCell.swift */; };
+		2FB3FC142442497A00074D17 /* CandidateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3FC132442497A00074D17 /* CandidateTableViewCell.swift */; };
 		2FFCF8942401B3A9002A7530 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2FFCF8932401B3A9002A7530 /* Alamofire */; };
 		2FFE82FF243EB33E00E139BC /* SearchTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE82FE243EB33E00E139BC /* SearchTextFieldView.swift */; };
 /* End PBXBuildFile section */
@@ -60,6 +61,7 @@
 		2FA47D24240B224D009DF645 /* ElectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionViewController.swift; sourceTree = "<group>"; };
 		2FB3FC0E2442163200074D17 /* MovieDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		2FB3FC102442245300074D17 /* MovieTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTitleTableViewCell.swift; sourceTree = "<group>"; };
+		2FB3FC132442497A00074D17 /* CandidateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateTableViewCell.swift; sourceTree = "<group>"; };
 		2FFE82FE243EB33E00E139BC /* SearchTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextFieldView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,8 +101,7 @@
 				2F6B1E092401B2E300DA5765 /* AppDelegate.swift */,
 				2F13CC2B2438B11D000A199F /* ElectionChangeDelegate.swift */,
 				2F4EDC61240763360049A997 /* ElectionsViewController.swift */,
-				2FB3FC102442245300074D17 /* MovieTitleTableViewCell.swift */,
-				2FB3FC0E2442163200074D17 /* MovieDescriptionTableViewCell.swift */,
+				2FB3FC12244248A200074D17 /* Table View Cells */,
 				2FA47D24240B224D009DF645 /* ElectionViewController.swift */,
 				2F25063224362B3F0038925E /* ElectionMoreViewController.swift */,
 				2F37D676243964550047A388 /* SearchMovieViewController.swift */,
@@ -130,6 +131,16 @@
 				2F6B1E122401B2E500DA5765 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2FB3FC12244248A200074D17 /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2FB3FC102442245300074D17 /* MovieTitleTableViewCell.swift */,
+				2FB3FC0E2442163200074D17 /* MovieDescriptionTableViewCell.swift */,
+				2FB3FC132442497A00074D17 /* CandidateTableViewCell.swift */,
+			);
+			path = "Table View Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +228,7 @@
 				2FA47D25240B224D009DF645 /* ElectionViewController.swift in Sources */,
 				2F6B1E0A2401B2E300DA5765 /* AppDelegate.swift in Sources */,
 				2F4EDC5E240748570049A997 /* Election.swift in Sources */,
+				2FB3FC142442497A00074D17 /* CandidateTableViewCell.swift in Sources */,
 				2FB3FC0F2442163200074D17 /* MovieDescriptionTableViewCell.swift in Sources */,
 				2F13CC2C2438B11D000A199F /* ElectionChangeDelegate.swift in Sources */,
 				2F7A73452430D7AF005C12EC /* UserNameStore.swift in Sources */,

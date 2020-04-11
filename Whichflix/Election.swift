@@ -3,7 +3,7 @@ import Foundation
 struct Election: Codable, Identifiable {
     let id: String
     let title: String
-    let candidates: [Candidate]
+    var candidates: [Candidate]
     let participants: [Participant]
 
     enum CodingKeys: String, CodingKey {

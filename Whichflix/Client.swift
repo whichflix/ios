@@ -1,6 +1,5 @@
 import Foundation
 import Alamofire
-import UIKit.UIDevice
 
 struct Client {
 
@@ -8,7 +7,7 @@ struct Client {
 
     private let session: Alamofire.Session = {
         let configuration = URLSessionConfiguration.af.default
-        configuration.headers["X-Device-ID"] = UIDevice.current.identifierForVendor!.uuidString
+        configuration.headers["X-Device-ID"] = AppDelegate.UserID
         return Alamofire.Session(configuration: configuration)
     }()
 
@@ -109,6 +108,26 @@ struct Client {
             .responseDecodable(of: Election.self) { response in
                 let election = response.value
                 completion(election)
+            }
+    }
+
+    func castVoteForCandidate(candidate: Candidate, completion: @escaping (Candidate?) -> ()) {
+        let url = "\(baseURL)/candidates/\(candidate.id)/votes/"
+        session.request(url, method: .post)
+            .validate()
+            .responseDecodable(of: Candidate.self) { response in
+                let candidate = response.value
+                completion(candidate)
+            }
+    }
+
+    func removeVoteFromCandidate(candidate: Candidate, completion: @escaping (Candidate?) -> ()) {
+        let url = "\(baseURL)/candidates/\(candidate.id)/votes/"
+        session.request(url, method: .delete)
+            .validate()
+            .responseDecodable(of: Candidate.self) { response in
+                let candidate = response.value
+                completion(candidate)
             }
     }
 }

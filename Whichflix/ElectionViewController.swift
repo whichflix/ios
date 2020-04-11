@@ -5,7 +5,11 @@ protocol MovieAddAttemptDelegate: class {
     func userAttemptedToAddMovie(movie: Movie)
 }
 
-class ElectionViewController: UITableViewController, ElectionChangeDelegate {
+protocol CandidateVoteToggleAttemptDelegate: class {
+    func userAttemptedToToggleVote(candidate: Candidate)
+}
+
+class ElectionViewController: UITableViewController {
 
     weak var delegate: ElectionChangeDelegate?
 
@@ -75,10 +79,10 @@ class ElectionViewController: UITableViewController, ElectionChangeDelegate {
         viewController.delegate = self
         present(UINavigationController(rootViewController: viewController), animated: true, completion: nil)
     }
+}
 
 
-    // MARK: ElectionChangeDelegate
-
+extension ElectionViewController: ElectionChangeDelegate {
     func electionChangeDidUpdateElection(election: Election) {
         self.election = election
     }
@@ -88,12 +92,33 @@ class ElectionViewController: UITableViewController, ElectionChangeDelegate {
     }
 }
 
+
 extension ElectionViewController: MovieAddAttemptDelegate {
     func userAttemptedToAddMovie(movie: Movie) {
         dismiss(animated: true, completion: nil)
         userAttemptedAddMovie(movie: movie)
     }
 }
+
+extension ElectionViewController: CandidateVoteToggleAttemptDelegate {
+
+    func userAttemptedToToggleVote(candidate: Candidate) {
+
+        guard let index = election.candidates.map({ $0.id }).firstIndex(of: candidate.id) else { return }
+
+        if !candidate.containsMyVote {
+            election.candidates[index].addMe()
+            Client.shared.castVoteForCandidate(candidate: candidate) { [weak self] in
+                guard let candidate = $0 else { return }
+                self?.election.candidates[index] = candidate
+            }
+        } else {
+            election.candidates[index].removeMe()
+            Client.shared.removeVoteFromCandidate(candidate: candidate) { _ in }
+        }
+    }
+}
+
 
 extension ElectionViewController {
 
@@ -102,20 +127,22 @@ extension ElectionViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let movie = election.candidates[indexPath.row].movie
+        let candidate = election.candidates[indexPath.row]
 
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
-        cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = movie.title
-        cell.imageView?.af.setImage(withURL: URL(string: movie.imageURL)!, placeholderImage: UIImage(named: "placeholder-movie.jpg"))
+        let cell = CandidateTableViewCell(candidate: candidate)
+        cell.delegate = self
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let movie = election.candidates[indexPath.row].movie
+        let candidate = election.candidates[indexPath.row]
 
         tableView.deselectRow(at: indexPath, animated: true)
-        let viewController = VoteMovieViewController(movie: movie)
+        let viewController = CandidateViewController(candidate: candidate)
         navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 128
     }
 }

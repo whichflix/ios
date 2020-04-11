@@ -19,8 +19,13 @@ class AddMovieViewController: MovieDetailsViewController {
     }
 }
 
-class VoteMovieViewController: MovieDetailsViewController {
-
+class CandidateViewController: MovieDetailsViewController {
+    init(candidate: Candidate) {
+        super.init(movie: candidate.movie)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 
@@ -69,8 +74,8 @@ class MovieDetailsViewController: UITableViewController {
 }
 
 
-extension MovieDetailsViewController {
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+fileprivate extension MovieDetailsViewController {
+    internal override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellKind = CellKind(rawValue: indexPath.row)!
 
         let standardCellLabel: String
@@ -92,7 +97,7 @@ extension MovieDetailsViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    internal override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CellKind.allCases.count
     }
 }

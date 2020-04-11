@@ -80,6 +80,7 @@ extension SearchMovieViewController: UITableViewDataSource {
         let movie = results[indexPath.row]
         let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
         cell.textLabel?.text = movie.title
+        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         cell.imageView?.af.setImage(withURL: URL(string: movie.imageURL)!, placeholderImage: UIImage(named: "placeholder-movie.jpg"))
         return cell
     }
@@ -94,6 +95,10 @@ extension SearchMovieViewController: UITableViewDelegate {
         let viewController = AddMovieViewController(movie: movie)
         viewController.delegate = self
         navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 128
     }
 
 }

@@ -13,6 +13,8 @@ import Amplitude
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    public static let UserID = UIDevice.current.identifierForVendor!.uuidString
+
     private lazy var electionsViewController: ElectionsViewController = {
         let viewController = ElectionsViewController()
         return viewController
